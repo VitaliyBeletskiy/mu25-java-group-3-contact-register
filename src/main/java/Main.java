@@ -5,6 +5,6 @@ public class Main {
 
         ConsoleUi console = new ConsoleUi();
 
-        console.loginMenu();
+        console.showLoginMenu();
     }
 }

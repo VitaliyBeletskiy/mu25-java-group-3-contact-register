@@ -1,38 +1,80 @@
 package ui;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public final class ConsoleUi {
 
     private Scanner scanner = new Scanner(System.in);
+    private final List<MenuItem> loginMenu = List.of(
+            new MenuItem("1", "Guest User", () -> {
 
-    public void loginMenu() {
-        while (true) {
-            showLoginMenuOptions();
+            }),
+            new MenuItem("2", "Admin User", () -> {
 
-            String choice = scanner.nextLine().trim().toLowerCase();
-            switch (choice) {
-                case "1":
-                    System.out.println("Guest login selected");
-                    break;
-                case "2":
-                    System.out.println("Admin login selected");
-                    break;
-                case "quit":
-                    System.out.println("goodbye");
-                    System.exit(0);
-                    break;
-                default:
-                    System.out.println("Invalid input, try again");
-            }
-        }
+            }),
+            new MenuItem("quit", "Exit Program", () -> {
+
+            })
+    );
+    private final List<MenuItem> mainMenu = List.of(
+            new MenuItem("1", "Search by last name", () -> {
+
+            }),
+            new MenuItem("2", "Search by first name", () -> {
+
+            }),
+            new MenuItem("3", "Search by street name", () -> {
+
+
+            }),
+            new MenuItem("4", "Free search", () -> {
+
+
+            }),
+            new MenuItem("5", "Create new contact", () -> {
+
+
+            })
+            , new MenuItem("6", "Update existing contact", () -> {
+
+
+            }),
+            new MenuItem("7", "Delete contact", () -> {
+
+
+            }),
+            new MenuItem("8", "Print all contacts", () -> {
+
+
+            }),
+            new MenuItem("quit", "Exit program", () -> {
+
+
+            })
+    );
+
+
+    public void showLoginMenu() {
+        println("============================");
+        println("=     Select User role     =");
+        println("============================");
+        loginMenu.forEach(i -> println(i.key() + ": " + i.title()));
+        println("============================");
     }
 
-    private void showLoginMenuOptions() {
-        System.out.println("=== Login Menu ===");
-        System.out.println("Choose an option:");
-        System.out.println("1) Guest");
-        System.out.println("2) Administrator");
-        System.out.println("quit) Exit program");
+    public void showMainMenu() {
+        println("============================");
+        println("=        Main Menu         =");
+        println("============================");
+        mainMenu.forEach(i -> println(i.key() + ": " + i.title()));
+        println("============================");
     }
+
+    private void println(String msg) {
+        System.out.println(msg);
+    }
+
+
 }
