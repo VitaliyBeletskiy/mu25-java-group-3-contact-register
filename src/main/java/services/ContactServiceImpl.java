@@ -4,6 +4,7 @@ import data.ContactRepository;
 import data.models.Contact;
 
 import java.util.List;
+import java.util.Optional;
 
 public final class ContactServiceImpl implements ContactService {
 
@@ -34,11 +35,10 @@ public final class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public Contact searchByLastName(String lastName) {
+    public Optional<Contact> searchByLastName(String lastName) {
         return repo.getAll().stream()
                 .filter(c -> c.lastName().equalsIgnoreCase(lastName))
-                .findFirst()
-                .orElse(null);
+                .findFirst();
     }
 
     @Override
