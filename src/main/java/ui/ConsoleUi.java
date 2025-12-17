@@ -33,13 +33,12 @@ public final class ConsoleUi {
             new MenuItem("6", "Create new contact", User::isAdmin, this::createNewContact),
             new MenuItem("7", "Update existing contact", User::isAdmin, () -> {
             }),
-            new MenuItem("8", "Delete contact", User::isAdmin, () -> {
-            }),
+            new MenuItem("8", "Delete contact", User::isAdmin, this::deleteContact),
             new MenuItem("quit", "Exit program", u -> true, () -> System.exit(0))
     );
 
     public ConsoleUi(ContactService contactService) {
-       this.contactService = contactService;
+        this.contactService = contactService;
     }
 
     public void start() {
@@ -140,6 +139,35 @@ public final class ConsoleUi {
 
         println("Contact created successfully.");
         println("");
+    }
+
+    private void deleteContact() {
+        println("=== Delete Contact ===");
+        println("Enter last name of contact to delete:");
+
+        String lastName = getNonEmptyStringInput();
+        Contact contact = contactService.searchByLastName(lastName).orElse(null);
+
+        if (contact == null) {
+            println("No contact found with that last name.");
+            return;
+        }
+
+        println("Contact found:");
+        printContact(contact, 1);
+
+        println("Are you sure you want to delete this contact? (yes/no)");
+        print("> ");
+        String confirmation = scanner.nextLine().trim().toLowerCase();
+
+        if (confirmation.equals("yes")) {
+            contactService.deleteContact(contact);
+            println("Contact deleted successfully.");
+        } else {
+            println("Delete cancelled.");
+        }
+
+        waitForEnter();
     }
 
     private void handleSearch(SearchType searchType) {
