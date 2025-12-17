@@ -3,6 +3,7 @@ package services;
 import data.models.Contact;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ContactService {
 
@@ -14,7 +15,7 @@ public interface ContactService {
 
     void deleteContact(Contact contact);
 
-    Contact searchByLastName(String lastName);
+    Optional<Contact> searchByLastName(String lastName);
 
     List<Contact> searchByFirstName(String firstName);
 

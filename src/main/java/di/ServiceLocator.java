@@ -6,6 +6,7 @@ import data.FileStorageService;
 import data.StorageService;
 import services.ContactService;
 import services.ContactServiceImpl;
+import ui.ConsoleUi;
 
 public final class ServiceLocator {
 
@@ -37,5 +38,9 @@ public final class ServiceLocator {
             contactService = new ContactServiceImpl(provideContactRepository());
         }
         return contactService;
+    }
+
+    public static ConsoleUi provideConsoleUi() {
+        return new ConsoleUi(provideContactService());
     }
 }
